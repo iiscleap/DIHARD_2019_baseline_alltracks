@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## DIHARD-2019-baseline-alltracks
 
 #### Prerequisites
@@ -70,3 +71,6 @@ bash alltracksrun.sh --tracknum 2 --dihard_dev_2019_path <mod>/data/dihard_dev_2
 ```
 
 
+=======
+# DIHARD_2019_baseline_alltracks
+>>>>>>> babadd4510eea816ef03f4f025bdf50072351563
