@@ -53,7 +53,7 @@ if [ $tracknum -eq 1 ]; then
 elif [ $tracknum -eq 2 ]; then
 	data_dir=$2
 	
-	if [ "devoreval" = "dev" ]; then
+	if [ "$devoreval" = "dev" ]; then
 		path_to_dihard_2019_dev_track2=$1
 
 		echo "Preparing ${data_dir}..."

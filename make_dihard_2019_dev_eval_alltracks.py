@@ -145,11 +145,11 @@ def prepare_dihard_2019_dev_track2(src_dir, data_dir):
         flacpath = os.path.join(root,'flac') 
         rttmpath = os.path.join(root,'rttm')
         sadpath = os.path.join(root,'sad')
+        sad_webrtcpath = os.path.join(root,'sad_webrtc')
 
 
 
-
-        for sadroot, _ , labs in os.walk(sadpath):
+        for sadroot, _ , labs in os.walk(sad_webrtcpath):
 
 
             for filename in labs: 
@@ -169,7 +169,11 @@ def prepare_dihard_2019_dev_track2(src_dir, data_dir):
                         segment_id += 1
  
 
-                    wav_str = "{} sox -c 1 -t wavpcm -s {}/{}.wav -r 16000 -t wavpcm - |\n".format(utt, flacpath, utt)
+                    #wav_str = "{} sox -c 1 -t wavpcm -s {}/{}.wav -r 16000 -t wavpcm - |\n".format(utt, flacpath, utt)
+
+                    wav_str = "{} sox -t flac {}/{}.flac -t wav -r 16k "\
+                           "-b 16 --channels 1 - |\n".format(utt, flacpath, utt) 
+
                     wavscp_fi.write(wav_str)
 
                     with open("{}/{}.rttm".format(rttmpath, utt), 'r') as fh:
@@ -209,11 +213,12 @@ def prepare_dihard_2019_eval_track2(src_dir, data_dir):
         flacpath = os.path.join(root,'flac') 
         rttmpath = os.path.join(root,'rttm')
         sadpath = os.path.join(root,'sad')
+        sad_webrtcpath = os.path.join(root,'sad_webrtc')
 
 
 
 
-        for sadroot, _ , labs in os.walk(sadpath):
+        for sadroot, _ , labs in os.walk(sad_webrtcpath):
 
             for filename in labs: 
                 if filename.endswith(".sad"):
@@ -231,7 +236,10 @@ def prepare_dihard_2019_eval_track2(src_dir, data_dir):
                         segment_id += 1
 
 
-                    wav_str = "{} sox -c 1 -t wavpcm -s {}/{}.wav -r 16000 -t wavpcm - |\n".format(utt, flacpath, utt)
+                    #wav_str = "{} sox -c 1 -t wavpcm -s {}/{}.wav -r 16000 -t wavpcm - |\n".format(utt, flacpath, utt)
+                    wav_str = "{} sox -t flac {}/{}.flac -t wav -r 16k "\
+                           "-b 16 --channels 1 - |\n".format(utt, flacpath, utt) 
+
                     wavscp_fi.write(wav_str)
 
 
