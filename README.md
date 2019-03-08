@@ -56,7 +56,7 @@ local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 1 <path
 bash alltracksrun.sh --tracknum 1 --plda_path <mod>/DIHARD_2019_baseline_alltracks/plda_track1
 ```
 
-##### Running the above command generates rttm file for dev and eval in <k>/kaldi/egs/dihard_2018/v2/exp/xvector_nnet_1a/xvectors_dihard_{dev/eval}_2019_track1/plda_scores/rttm
+##### Running the above command generates rttm file for dev and eval in \<k\>/kaldi/egs/dihard_2018/v2/exp/xvector_nnet_1a/xvectors_dihard_{dev/eval}_2019_track1/plda_scores/rttm
  The script will also display DER on dev.
 
 ##### Baseline results for DIHARD_DEV_2019 Track1 is in \<mod\>/DIHARD_2019_baseline_alltracks/performance_metrics_dev_track1.txt
