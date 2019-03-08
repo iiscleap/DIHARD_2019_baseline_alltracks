@@ -69,7 +69,7 @@ local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 1 <path
 bash alltracksrun.sh --tracknum 1 --plda_path <mod>/plda
 ```
 
-** Running the above command generates rttm file for dev and eval in <k>/kaldi/egs/dihard_2018/v2/exp/xvector_nnet_1a/xvectors_dihard_{dev/eval}_2019_track1/plda_scores/rttm
+##### Running the above command generates rttm file for dev and eval in <k>/kaldi/egs/dihard_2018/v2/exp/xvector_nnet_1a/xvectors_dihard_{dev/eval}_2019_track1/plda_scores/rttm
  
 The script will also display DER on dev.
 
@@ -106,14 +106,14 @@ Execute the alltracks.sh file as shown below (with track 2 option and plda path)
 bash alltracksrun.sh --tracknum 2 --plda_path <mod>/plda
 ```
 
-** Running the above command generates rttm file for dev and eval in <k>/kaldi/egs/dihard_2018/v2/exp/xvector_nnet_1a/xvectors_dihard_{dev/eval}_2019_track2/plda_scores/rttm
+##### Running the above command generates rttm file for dev and eval in <k>/kaldi/egs/dihard_2018/v2/exp/xvector_nnet_1a/xvectors_dihard_{dev/eval}_2019_track2/plda_scores/rttm
  and displays the dev DER.
   
 -------------------------------------------------
 
 **Note :** Filewise performance metrics of DER, Jaccard Error Rate(JER), Mutual Information (MI) ... computed using the scoring script in [dscore]((https://github.com/nryant/dscore "https://github.com/nryant/dscore")
 
-**Note :** The readme of this repository uses DIHARD 2019 dataset as an example, but the scripts here will work on any dataset, provided th*6.**e dataset structure is maintained as shown above and the dataset's list files are present in <mod>.
+**Note :** The readme of this repository uses DIHARD 2019 dataset as an example, but the scripts here will work on any dataset, provided the dataset structure is maintained as shown above and the dataset's list files are present in <mod>.
 All you need is the that the dataset directory path passed to the data preparation files expects the contents within the directory to be structured as the example shown below
 ```
 <path of dataset passed>
