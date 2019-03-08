@@ -107,7 +107,7 @@ bash alltracksrun.sh --tracknum 2 --plda_path <mod>/plda
 ```
 
 ##### Running the above command generates rttm file for dev and eval in <k>/kaldi/egs/dihard_2018/v2/exp/xvector_nnet_1a/xvectors_dihard_{dev/eval}_2019_track2/plda_scores/rttm
- and displays the dev DER.
+The script will also display DER on dev.
   
 -------------------------------------------------
 
