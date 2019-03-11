@@ -12,6 +12,11 @@ cd kaldi
 cd tools; make;
 cd ../src; ./configure; make
 ```
+Knowledge in Kaldi will be beneficial. Links below might be of some help
+
+- [Kaldi tutorial](http://kaldi-asr.org/doc/tutorial.html,"http://kaldi-asr.org/doc/tutorial.html")
+- [Kaldi for Dummies tutorial](http://kaldi-asr.org/doc/kaldi_for_dummies.html,"http://kaldi-asr.org/doc/kaldi_for_dummies.html")
+
  **2.** Webrtc (only for track 2)
 
 https://github.com/wiseman/py-webrtcvad (download from the above page or the following command should work) 
