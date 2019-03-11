@@ -14,8 +14,8 @@ cd ../src; ./configure; make
 ```
 Knowledge in Kaldi will be beneficial. Links below might be of some help
 
-- [Kaldi tutorial](http://kaldi-asr.org/doc/tutorial.html,"http://kaldi-asr.org/doc/tutorial.html")
-- [Kaldi for Dummies tutorial](http://kaldi-asr.org/doc/kaldi_for_dummies.html,"http://kaldi-asr.org/doc/kaldi_for_dummies.html")
+- [Kaldi tutorial](http://kaldi-asr.org/doc/tutorial.html "http://kaldi-asr.org/doc/tutorial.html")
+- [Kaldi for Dummies tutorial](http://kaldi-asr.org/doc/kaldi_for_dummies.html "http://kaldi-asr.org/doc/kaldi_for_dummies.html")
 
  **2.** Webrtc (only for track 2)
 
