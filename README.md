@@ -65,16 +65,16 @@ bash alltracksrun.sh --tracknum 1 --plda_path <mod>/DIHARD_2019_baseline_alltrac
 
 **Note**: webrtc expects .wav files but DIHARD 2019 dataset has .flac files. Convert .flac files to .wav files.
 
-**1.** Run the \<mod\>/flac_to_wav_usingsox.sh (this file uses [sox](http://sox.sourceforge.net/) command for the conversion) as follows : 
+**1.** Run the \<mod\>/DIHARD_2019_baseline_alltracks/flac_to_wav_usingsox.sh (this file uses [sox](http://sox.sourceforge.net/) command for the conversion) as follows : 
 
 ```
 cd <mod>/DIHARD_2019_baseline_alltracks
 bash flac_to_wav_usingsox.sh dihard_2019_dev.list <dev>/flac <dev>/wav
 bash flac_to_wav_usingsox.sh dihard_2019_eval.list <eval>/flac <eval>/wav 
 ```
-**2.** Execute the run_vad.sh in \<mod\> to create SAD files for DIHARD 2019 dev and eval single channel datasets. 
+**2.** Execute the run_vad.sh in \<mod\>/DIHARD_2019_baseline_alltracks to create SAD files for DIHARD 2019 dev and eval single channel datasets. 
 ```
-cd <mod>
+cd <mod>/DIHARD_2019_baseline_alltracks
 bash run_vad.sh <dev>/wav
 bash run_vad.sh <eval>/wav  
 ```
@@ -87,8 +87,8 @@ cp <eval>/wav/*.sad <eval>/sad_webrtc
 ```
 **4.** Data preparation of DIHARD 2019 dev and eval for Track 2.
 ```
-local/make_dihard_2019_dev_eval_alltracks.sh --devoreval dev --tracknum 2 <dev> <mod>/data/dihard_dev_2019_track2
-local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 2 <eval> <mod>/data/dihard_eval_2019_track2
+local/make_dihard_2019_dev_eval_alltracks.sh --devoreval dev --tracknum 2 <dev> <mod>/DIHARD_2019_baseline_alltracks/data/dihard_dev_2019_track2
+local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 2 <eval> <mod>/DIHARD_2019_baseline_alltracks/data/dihard_eval_2019_track2
 ```
 **5.** Execute the alltracks.sh file as shown below (requires track number option and plda path of plda_track2 file ) :  
 ```
@@ -102,7 +102,7 @@ The script will also display DER on dev.
   
 -------------------------------------------------
 
-**Note :** Filewise performance metrics of DER, Jaccard Error Rate(JER), Mutual Information (MI) ... computed using the scoring script in [dscore]((https://github.com/nryant/dscore "https://github.com/nryant/dscore")
+**Note :** Filewise performance metrics of DER, Jaccard Error Rate(JER), Mutual Information (MI) ... computed using the scoring script in [dscore](https://github.com/nryant/dscore "https://github.com/nryant/dscore")
 
 **Note :** The readme of this repository uses DIHARD 2019 dataset as an example, but the scripts here will work on any dataset, provided the dataset structure is maintained as shown above and the dataset's list files are present in <mod>.
 All you need is the that the dataset directory path passed to the data preparation files expects the contents within the directory to be structured as the example shown below
