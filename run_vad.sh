@@ -1,7 +1,6 @@
 	
 #!/bin/bash
 
-# The dictionary of converted WAVEFORM of DIHARD (16K, 16bit)
 
 output_dir=$1
 
