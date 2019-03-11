@@ -47,8 +47,8 @@ cp {final.raw, max_chunk_size, min_chunk_size,extract.config} <k>/kaldi/egs/diha
 **1.**  Data preparation of DIHARD 2019 dev and eval for Track 1.
 ```
 cd <k>/kaldi/egs/dihard_2018/v2/
-local/make_dihard_2019_dev_eval_alltracks.sh --devoreval dev --tracknum 1 <path of DIHARD 2019 dev> <mod>/data/dihard_dev_2019_track1
-local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 1 <path of DIHARD 2019 eval> <mod>/data/dihard_eval_2019_track1
+local/make_dihard_2019_dev_eval_alltracks.sh --devoreval dev --tracknum 1 <path of DIHARD 2019 dev> data/dihard_dev_2019_track1
+local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 1 <path of DIHARD 2019 eval> data/dihard_eval_2019_track1
 ```
 
 **2.** Execute the alltracks.sh file (example for running track 1) .. Requires track number and plda path of plda_track1 file: 
@@ -87,8 +87,9 @@ cp <eval>/wav/*.sad <eval>/sad_webrtc
 ```
 **4.** Data preparation of DIHARD 2019 dev and eval for Track 2.
 ```
-local/make_dihard_2019_dev_eval_alltracks.sh --devoreval dev --tracknum 2 <dev> <mod>/DIHARD_2019_baseline_alltracks/data/dihard_dev_2019_track2
-local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 2 <eval> <mod>/DIHARD_2019_baseline_alltracks/data/dihard_eval_2019_track2
+cd <k>/kaldi/egs/dihard_2018/v2/
+local/make_dihard_2019_dev_eval_alltracks.sh --devoreval dev --tracknum 2 <dev> data/dihard_dev_2019_track2
+local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 2 <eval> dihard_eval_2019_track2
 ```
 **5.** Execute the alltracks.sh file as shown below (requires track number option and plda path of plda_track2 file ) :  
 ```
