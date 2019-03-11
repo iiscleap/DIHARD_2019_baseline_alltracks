@@ -32,12 +32,12 @@ git clone https://github.com/iiscleap/DIHARD_2019_baseline_alltracks.git
 ```
 
 ```
-cd DIHARD_2019_baseline_alltracks
+cd <mod>/DIHARD_2019_baseline_alltracks
 cp alltracksrun.sh <k>/kaldi/egs/dihard_2018/v2
 cp {make_dihard_2019_dev_eval_alltracks.py,make_dihard_2019_dev_eval_alltracks.sh} <k>/kaldi/egs/dihard_2018/v2/local     
 mkdir -p <k>/kaldi/egs/dihard_2018/v2/exp/xvector_nnet_1a
 cp {final.raw, max_chunk_size, min_chunk_size,extract.config} <k>/kaldi/egs/dihard_2018/v2/exp/xvector_nnet_1a
-
+cp md-eval.pl <k>/kaldi/egs/dihard_2018/v2
 ```
 
 **Note.** \<dev\> and \<eval\> will refer to DIHARD 2019 single channel development and evaluation datasets respectively. 
