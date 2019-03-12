@@ -1,41 +1,117 @@
 ## DIHARD-2019-baseline-alltracks
+Download the DIHARD development and evaluation data.
 
 #### Prerequisites
-**1.** Kaldi
-**2.** webrtc
 
-#### Mandatory instructions for all tracks:
-**1.** Select a directory to clone this repository (called <mod> here after) and execute the following command.
+**0.** Python (no version requirements)
+
+**1.** Kaldi (the basepath where kaldi is cloned will be refered as  \<k\> )
+```
+git clone https://github.com/kaldi-asr/kaldi.git 
+cd kaldi
+cd tools; make;
+cd ../src; ./configure; make
+```
+Knowledge in Kaldi will be beneficial. Links below might be of some help
+
+- [Kaldi tutorial](http://kaldi-asr.org/doc/tutorial.html "http://kaldi-asr.org/doc/tutorial.html")
+- [Kaldi for Dummies tutorial](http://kaldi-asr.org/doc/kaldi_for_dummies.html "http://kaldi-asr.org/doc/kaldi_for_dummies.html")
+
+ **2.** Webrtc (only for track 2)
+
+https://github.com/wiseman/py-webrtcvad (download from the above page or the following command should work) 
+```
+pip install webrtcvad
+```
+
+**3.** Optional Denoising 
+
+Requires cntk installation. 
+(https://github.com/mmmaat/denoising_DIHARD18)
+
+
+#### Instructions for all tracks:
+**1.** Move to a directory to clone this baseline repository (called \<mod\> here after) and execute the following commands.
 ```
 git clone https://github.com/iiscleap/DIHARD_2019_baseline_alltracks.git
 ```
-**2.** Traverse to the directory of choice (called \<k\> here after) and clone the Kaldi repository using the following command.
-```
-git clone https://github.com/kaldi-asr/kaldi.git 
-```
-**3.** Copy the file \<mod\>/DIHARD_2019_baseline_alltracks/alltracksrun.sh into \<k\>/kaldi/egs/dihard_2018/v2
-```
-cp <mod>/DIHARD_2019_baseline_alltracks/alltracksrun.sh <k>/kaldi/egs/dihard_2018/v2
-```
-
-**4.** Copy files <mod>/DIHARD_2019_baseline_alltracks/make_dihard_2019_dev_eval_alltracks.sh and <mod>/DIHARD_2019_baseline_alltracks/make_dihard_2019_dev_eval_alltracks.py into <k>/kaldi/local.
-```
-cp <mod>/{make_dihard_2019_dev_eval_alltracks.py,make_dihard_2019_dev_eval_alltracks.sh} <k>/kaldi/local       
-```
-
-**5.** Create a directory called exp/xvector_nnet_1a in <k>/kaldi/egs/dihard_2018/v2
-```
-mkdir -p <k>/kaldi/exp/xvector_nnet_1a
-```
-
-**6.** Copy the final.raw, max_chunk_size, min_chunk_size and extract.config files of <mod>/DIHARD_2019_baseline_alltracks into the directory  <k>/kaldi/exp/xvector_nnet_1a.
 
 ```
-cp <mod>/{final.raw, max_chunk_size, min_chunk_size,extract.config} <k>/kaldi/egs/dihard_2018/v2/exp/xvector_nnet_1a
+cd <mod>/DIHARD_2019_baseline_alltracks
+cp alltracksrun.sh <k>/kaldi/egs/dihard_2018/v2
+cp {make_dihard_2019_dev_eval_alltracks.py,make_dihard_2019_dev_eval_alltracks.sh} <k>/kaldi/egs/dihard_2018/v2/local     
+mkdir -p <k>/kaldi/egs/dihard_2018/v2/exp/xvector_nnet_1a
+cp {final.raw, max_chunk_size, min_chunk_size,extract.config} <k>/kaldi/egs/dihard_2018/v2/exp/xvector_nnet_1a
+cp md-eval.pl <k>/kaldi/egs/dihard_2018/v2
 ```
 
-**7.** Dataset directory path passed to the data preparation files expects the contents within the directory to be structured as the example shown below
+**Note.** \<dev\> and \<eval\> will refer to DIHARD 2019 single channel development and evaluation datasets respectively. 
 
+#### Track 1 instructions :
+
+**1.**  Data preparation of DIHARD 2019 dev and eval for Track 1.
+```
+cd <k>/kaldi/egs/dihard_2018/v2/
+local/make_dihard_2019_dev_eval_alltracks.sh --devoreval dev --tracknum 1 <path of DIHARD 2019 dev> data/dihard_dev_2019_track1
+local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 1 <path of DIHARD 2019 eval> data/dihard_eval_2019_track1
+```
+
+**2.** Execute the alltracks.sh file (example for running track 1) .. Requires track number and plda path of plda_track1 file: 
+```
+bash alltracksrun.sh --tracknum 1 --plda_path <mod>/DIHARD_2019_baseline_alltracks/plda_track1
+```
+
+##### Running the above command generates rttm file for dev and eval in \<k\>/kaldi/egs/dihard_2018/v2/exp/xvector_nnet_1a/xvectors_dihard_{dev/eval}_2019_track1/plda_scores/rttm
+ The script will also display DER on dev.
+
+##### Baseline results for DIHARD_DEV_2019 Track1 is in \<mod\>/DIHARD_2019_baseline_alltracks/performance_metrics_dev_track1.txt
+
+#### Track 2 instructions :
+
+**Note**: webrtc expects .wav files but DIHARD 2019 dataset has .flac files. Convert .flac files to .wav files.
+
+**1.** Run the \<mod\>/DIHARD_2019_baseline_alltracks/flac_to_wav_usingsox.sh (this file uses [sox](http://sox.sourceforge.net/) command for the conversion) as follows : 
+
+```
+cd <mod>/DIHARD_2019_baseline_alltracks
+bash flac_to_wav_usingsox.sh dihard_2019_dev.list <dev>/flac <dev>/wav
+bash flac_to_wav_usingsox.sh dihard_2019_eval.list <eval>/flac <eval>/wav 
+```
+**2.** Execute the run_vad.sh in \<mod\>/DIHARD_2019_baseline_alltracks to create SAD files for DIHARD 2019 dev and eval single channel datasets. 
+```
+cd <mod>/DIHARD_2019_baseline_alltracks
+bash run_vad.sh <dev>/wav
+bash run_vad.sh <eval>/wav  
+```
+**3.** Copy all such .sad files into a folder named sad_webrtc in <dev/eval>
+```
+mkdir <dev>/sad_webrtc
+cp <dev>/wav/*.sad <dev>/sad_webrtc
+mkdir <eval>/sad_webrtc
+cp <eval>/wav/*.sad <eval>/sad_webrtc
+```
+**4.** Data preparation of DIHARD 2019 dev and eval for Track 2.
+```
+cd <k>/kaldi/egs/dihard_2018/v2/
+local/make_dihard_2019_dev_eval_alltracks.sh --devoreval dev --tracknum 2 <dev> data/dihard_dev_2019_track2
+local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 2 <eval> dihard_eval_2019_track2
+```
+**5.** Execute the alltracks.sh file as shown below (requires track number option and plda path of plda_track2 file ) :  
+```
+bash alltracksrun.sh --tracknum 2 --plda_path <mod>/DIHARD_2019_baseline_alltracks/plda_track2
+```
+
+##### Running the above command generates rttm file for dev and eval in \<k\>/kaldi/egs/dihard_2018/v2/exp/xvector_nnet_1a/xvectors_dihard_{dev/eval}_2019_track2/plda_scores/rttm
+The script will also display DER on dev.
+
+##### Baseline results for DIHARD_DEV_2019 Track2 is in \<mod\>/DIHARD_2019_baseline_alltracks/performance_metrics_dev_track2.txt
+  
+-------------------------------------------------
+
+**Note :** Filewise performance metrics of DER, Jaccard Error Rate(JER), Mutual Information (MI) ... computed using the scoring script in [dscore](https://github.com/nryant/dscore "https://github.com/nryant/dscore")
+
+**Note :** The readme of this repository uses DIHARD 2019 dataset as an example, but the scripts here will work on any dataset, provided the dataset structure is maintained as shown above and the dataset's list files are present in <mod>.
+All you need is the that the dataset directory path passed to the data preparation files expects the contents within the directory to be structured as the example shown below
 ```
 <path of dataset passed>
 |-- flac
@@ -51,71 +127,3 @@ cp <mod>/{final.raw, max_chunk_size, min_chunk_size,extract.config} <k>/kaldi/eg
 |   |-- DH_0002.rttm
 |   |-- DH_0003.rttm
 ```
-**8.** <dev> and <eval> will be shothands for the paths of DIHARD 2019 single channel development and evaluation datasets respectively, which has the structure complying to the one shown above. 
-
-**Note :** The readme of this repository uses DIHARD 2019 dataset as an example, but the scripts here will work on any dataset, provided the dataset structure is maintained as shown above and the dataset's list files are present in <mod>.
-
-**Note :** Filewise performance metrics of DER, Jaccard Error Rate(JER), Mutual Information (MI) ... computed using the scoring script in [dscore]((https://github.com/nryant/dscore "https://github.com/nryant/dscore")
-#### Track 1 instructions :
-
-
-**1.**  Data preparation of DIHARD 2019 dev and eval for Track 1.
-```
-local/make_dihard_2019_dev_eval_alltracks.sh --devoreval dev --tracknum 1 <path of DIHARD 2019 dev> <mod>/data/dihard_dev_2019_track1
-```
-```
-local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 1 <path of DIHARD 2019 eval> <mod>/data/dihard_eval_2019_track1
-```
-
-**2.** Execute the alltracks.sh file as shown below : 
-```
-bash alltracksrun.sh --tracknum 1 --plda_path <mod>/plda
-```
-
-#### Track 2 instructions :
-
-##### Speech Activity Detection (SAD) for this track is computed using the [webrtc](https://github.com/wiseman/py-webrtcvad) tool. 
-
-**Note**: webrtc expects .wav files but DIHARD 2019 dataset has .flac files. Convert .flac files to .wav files.
-
-Run the flac_to_wav_usingsox.sh (this file uses [sox](http://sox.sourceforge.net/) command for the conversion) as follows : 
-Let <dev_wav> and <eval_wav> be the desired paths where the corresponding wav files should get created for DIHARD 2019 .dev and .eval flac files, respectively.
-
-```
-bash flac_to_wav_usingsox.sh <mod>/dihard_2019_dev.list <dev>/flac <dev_wav>
-bash flac_to_wav_usingsox.sh <mod>/dihard_2019_eval.list <eval>/flac <eval_wav> 
-```
-
-We are generating SAD for this track using [mmmaat/denoising_DIHARD18](https://github.com/mmmaat/denoising_DIHARD18) which first denoise the audio files using cntk model and then use [webrtcvad](https://github.com/wiseman/py-webrtcvad). Install it using the command below.
-```
-pip install webrtcvad
-```
-
-Execute the run_vad.sh in <mod> to create SAD files for DIHARD 2019 dev and eval single channel datasets. 
-```
-bash run_vad.sh <dev_wav> 
-```
-The above command will create a .sad file for each .wav file in <dev_wav>. Copy all such .sad files into a folder named sad_webrtc in <dev>
-```
-mkdir <dev>/sad_webrtc
-cp <dev_wav>/*.sad <dev>/sad_webrtc
-```
-
-
-
-
-
-Data preparation of DIHARD 2019 dev and eval for Track 2.
-```
-local/make_dihard_2019_dev_eval_alltracks.sh --devoreval dev --tracknum 2 <dev> <mod>/data/dihard_dev_2019_track2
-```
-```
-local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 2 <eval> <mod>/data/dihard_eval_2019_track2
-```
-
-Execute the alltracks.sh file as shown below :  
-```
-bash alltracksrun.sh --tracknum 2 --plda_path <mod>/plda
-```
-
-

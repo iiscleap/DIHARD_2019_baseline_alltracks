@@ -19,9 +19,9 @@ def main_vad(wav_dir ,mode, hop):
     for wav in wav_files:
         if wav.endswith('.wav'):
             data, fs = load(wav, sr=16000)
-            vad_info = utils.vad(data, fs, fs_vad = 16000, hoplength = hop, vad_mode=mode)
+            vad_info = utils_webrtc.vad(data, fs, fs_vad = 16000, hoplength = hop, vad_mode=mode)
 
-            segments = utils.get_segments(vad_info,fs)
+            segments = utils_webrtc.get_segments(vad_info,fs)
             output_file = open(wav.replace('.wav','.sad' ),'w')
             for i in range(segments.shape[0]):
                 start_time = segments[i][0]
