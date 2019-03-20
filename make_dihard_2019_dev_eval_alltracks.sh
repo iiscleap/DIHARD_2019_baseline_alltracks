@@ -1,8 +1,4 @@
 #!/bin/bash
-# Copyright 2018   Zili Huang
-# Apache 2.0.
-#
-# This script, called by ../run.sh, creates the DIHARD 2018 development data directory.
 
 devoreval="dev"
 tracknum=1
@@ -25,8 +21,31 @@ fi
 echo 'devoreval is' $devoreval
 echo 'tracknum is' $tracknum
 
+if [ "$tracknum" = "2_den" ]; then
+	data_dir=$2
+	
+	if [ "$devoreval" = "dev" ]; then
+		path_to_dihard_2019_dev_track1=$1
 
-if [ $tracknum -eq 1 ]; then
+		echo "Preparing ${data_dir}..."
+		local/make_dihard_2019_dev_eval_alltracks.py ${path_to_dihard_2019_dev_track1} ${data_dir} $tracknum $devoreval
+		sort -k 2,2 -s ${data_dir}/rttm > ${data_dir}/rttm_tmp
+		mv ${data_dir}/rttm_tmp ${data_dir}/rttm
+		sort -k 1,1 -s ${data_dir}/reco2num_spk > ${data_dir}/reco2num_spk_tmp
+		mv ${data_dir}/reco2num_spk_tmp ${data_dir}/reco2num_spk
+		utils/fix_data_dir.sh ${data_dir}
+	
+
+	elif [ "$devoreval" = "eval" ]; then
+		path_to_dihard_2018_eval_track1=$1
+
+		echo "Preparing ${data_dir}..."
+		local/make_dihard_2019_dev_eval_alltracks.py ${path_to_dihard_2018_eval_track1} ${data_dir} $tracknum $devoreval
+		utils/fix_data_dir.sh ${data_dir}
+	fi	
+
+
+elif [ $tracknum -eq 1 ]; then
 	data_dir=$2
 	
 	if [ "$devoreval" = "dev" ]; then
@@ -74,9 +93,3 @@ elif [ $tracknum -eq 2 ]; then
 		utils/fix_data_dir.sh ${data_dir}
 	fi
 fi
-
-
-
-
-
-
