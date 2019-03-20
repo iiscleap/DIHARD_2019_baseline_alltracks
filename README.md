@@ -87,7 +87,7 @@ cd <mod>/DIHARD_2019_baseline_alltracks
 bash run_vad.sh <dev>/wav
 bash run_vad.sh <eval>/wav  
 ```
-**3.** Copy all such .sad files into a folder named sad_webrtc in <dev/eval>
+**3.** Copy all such .sad files into a folder named sad_webrtc in <dev|eval>
 ```
 mkdir <dev>/sad_webrtc
 cp <dev>/wav/*.sad <dev>/sad_webrtc
@@ -105,11 +105,64 @@ local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 2 <eval
 bash alltracksrun.sh --tracknum 2 --plda_path <mod>/DIHARD_2019_baseline_alltracks/plda_track2
 ```
 
-##### Running the above command generates rttm file for dev and eval in \<k\>/kaldi/egs/dihard_2018/v2/exp/xvector_nnet_1a/xvectors_dihard_{dev/eval}_2019_track2/plda_scores/rttm
+##### Running the above command generates rttm file for dev and eval in \<k\>/kaldi/egs/dihard_2018/v2/exp/xvector_nnet_1a/xvectors_dihard_{dev|eval}_2019_track2/plda_scores/rttm
 The script will also display DER on dev.
 
 ##### Baseline results for DIHARD_DEV_2019 Track2 is in \<mod\>/DIHARD_2019_baseline_alltracks/performance_metrics_dev_track2.txt
   
+  
+#### (Optional) Track 2 with denoising instructions :
+
+##### Dependencies : 
+* [CNTK](https://docs.microsoft.com/en-us/cognitive-toolkit/setup-linux-python?tabs=cntkpy26):
+  python version
+* [webrtcvad](https://github.com/wiseman/py-webrtcvad)
+* [Numpy](https://github.com/numpy/numpy)
+* [Scipy](https://github.com/scipy/scipy)
+* [Librosa](https://github.com/librosa/librosa)
+
+Denoising which is a preprocessing step to be done for the webrtc vad step is explained in papers below.
+Sun, Lei, et al. "Speaker Diarization with Enhancing Speech for the
+First DIHARD Challenge." Proc. Interspeech 2018 (2018):
+2793-2797.[PDF](http://home.ustc.edu.cn/~sunlei17/pdf/lei_IS2018.pdf)
+
+Gao, Tian, et al. "Densely connected progressive learning for
+lstm-based speech enhancement." 2018 IEEE International Conference on
+Acoustics, Speech and Signal Processing
+(ICASSP). IEEE, 2018. [PDF](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8461861)
+
+Sun, Lei, et al. "Multiple-target deep learning for LSTM-RNN based
+speech enhancement." 2017 Hands-free Speech Communications and
+Microphone Arrays (HSCMA). IEEE,
+2017.[PDF](http://home.ustc.edu.cn/~sunlei17/pdf/MULTIPLE-TARGET.pdf)
+
+
+**1.** Clone the repository [mmmaat/denoising_DIHARD18](https://github.com/mmmaat/denoising_DIHARD18.git), into a directory referred as <den> hereon.
+```
+cd <den>
+git clone https://github.com/mmmaat/denoising_DIHARD18.git
+```
+**2.** Follow the steps in https://github.com/mmmaat/denoising_DIHARD18 to obtain webrtc SAD, post denoising, in a directory referred as <sad_webrtc_den_dev> and <sad_webrtc_den_eval> . 
+```
+mv <sad_webrtc_den_dev> <dev>/den_sad_webrtc_dev
+mv <sad_webrtc_den_eval> <eval>/den_sad_webrtc_eval
+```
+**3.** Data preparation of DIHARD 2019 dev and eval for Track 2 using denoising.
+```
+cd <k>/kaldi/egs/dihard_2018/v2/
+local/make_dihard_2019_dev_eval_alltracks.sh --devoreval dev --tracknum 2_den <dev> data/dihard_dev_2019_track2_den
+local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 2_den <eval> dihard_eval_2019_track2_den
+```
+**4.** Execute the alltracks.sh file as shown below (requires track number option and plda path of plda_track2 file ) :  
+```
+bash alltracksrun.sh --tracknum 2_den --plda_path <mod>/DIHARD_2019_baseline_alltracks/plda_track2
+```
+
+
+##### Running the above command generates rttm file for dev and eval in \<k\>/kaldi/egs/dihard_2018/v2/exp/xvector_nnet_1a/xvectors_dihard_{dev|eval}_2019_track2_den/plda_scores/rttm
+The script will also display DER on dev.
+
+##### Baseline results for DIHARD_DEV_2019 Track2 is in \<mod\>/DIHARD_2019_baseline_alltracks/performance_metrics_dev_track2_den.txt
 -------------------------------------------------
 
 **Note :** Filewise performance metrics of DER, Jaccard Error Rate(JER), Mutual Information (MI) ... computed using the scoring script in [dscore](https://github.com/nryant/dscore "https://github.com/nryant/dscore")
