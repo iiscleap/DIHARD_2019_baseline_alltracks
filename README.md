@@ -121,7 +121,7 @@ The script will also display DER on dev.
 * [Scipy](https://github.com/scipy/scipy)
 * [Librosa](https://github.com/librosa/librosa)
 
-Denoising which is a preprocessing step to be done for the webrtc vad step is explained in papers below.
+Denoising which is a preprocessing step to be done for the webrtc vad step is explained in papers below.\
 Sun, Lei, et al. "Speaker Diarization with Enhancing Speech for the
 First DIHARD Challenge." Proc. Interspeech 2018 (2018):
 2793-2797.[PDF](http://home.ustc.edu.cn/~sunlei17/pdf/lei_IS2018.pdf)
