@@ -1,15 +1,5 @@
 #!/usr/bin/env python
-"""Split RTTM into multiple files.
-
-To split an RTTM file containing segmentations for multiple recordings into
-one RTTM file per recording:
-
-    python split_rttm.py some.rttm output_dir/
-
-This will load the contents of ``some.rttm`` and for each file id found, write
-an RTTM to the directory ``output_dir/`` containg *ONLY* the turns associated with
-that file id.
-"""
+"""Split RTTM into multiple files."""
 from __future__ import print_function
 from __future__ import unicode_literals
 import argparse
