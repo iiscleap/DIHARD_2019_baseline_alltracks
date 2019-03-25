@@ -11,7 +11,7 @@ plda_path=default
 
 . parse_options.sh || exit 1;
 
-if [ $# != 0 -o "$plda_path" = "default" -o $tracknum -eq -1 ]; then
+if [ $# != 0 -o "$plda_path" = "default" -o "$tracknum" = "-1" ]; then
   echo "Usage: $0 --tracknum <1|2> --plda_path <path of plda file>"
   echo "main options (for others, see top of script file)"
   echo "  --tracknum                        # number associated with the track to be run"
