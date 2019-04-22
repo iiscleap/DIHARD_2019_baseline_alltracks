@@ -165,6 +165,30 @@ The script will also display DER on dev.
 ##### Baseline results for DIHARD_DEV_2019 Track2 is in \<mod\>/DIHARD_2019_baseline_alltracks/performance_metrics_dev_track2_den.txt
 -------------------------------------------------
 
+
+#### Beamforming instructions (for Tracks 3 and 4):
+Kaldi's Beamforming tool will be used for this task. Instructions follow.
+
+**1.**  Install Beamforming using the command from \<k\>.
+```
+./kaldi/tools/extras/install_beamformit.sh
+```
+
+
+
+
+
+---------------------------------------------------
+
+#### Track 3 instructions :
+**1.** Data preparation of DIHARD 2019 dev and eval for Track 1.
+```
+
+```
+
+
+
+
 **Note :** Filewise performance metrics of DER, Jaccard Error Rate(JER), Mutual Information (MI) ... computed using the scoring script in [dscore](https://github.com/nryant/dscore "https://github.com/nryant/dscore")
 
 **Note :** The readme of this repository uses DIHARD 2019 dataset as an example, but the scripts here will work on any dataset, provided the dataset structure is maintained as shown above and the dataset's list files are present in <mod>.
