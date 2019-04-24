@@ -202,6 +202,8 @@ local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 3 <eval
 ```
 bash alltracksrun.sh --tracknum 3 --plda_path <mod>/DIHARD_2019_baseline_alltracks/plda_track3
 ```
+
+
 ##### Running the above command generates rttm file for multichannel dev and eval in <k>/kaldi/egs/dihard_2018/v2/exp/xvector_nnet_1a/xvectors_dihard_{dev|eval}_2019_track3/plda_scores/rttm
 
 The script will also display DER on dev.
@@ -233,6 +235,14 @@ cd <k>/kaldi/egs/dihard_2018/v2/
 local/make_dihard_2019_dev_eval_alltracks.sh --devoreval dev --tracknum 4 <dev_multi> data/dihard_dev_2019_track4
 local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 4 <eval_multi> data/dihard_eval_2019_track4
 ```
+
+
+**4.** Execute the alltracksrun.sh file as shown below (requires track number option and plda path of plda_track4 file ) :  
+```
+bash alltracksrun.sh --tracknum 4 --plda_path <mod>/DIHARD_2019_baseline_alltracks/plda_track4
+```
+
+
 
 ##### Running the above command generates rttm file for multichannel dev and eval in <k>/kaldi/egs/dihard_2018/v2/exp/xvector_nnet_1a/xvectors_dihard_{dev|eval}_2019_track4/plda_scores/rttm
 
