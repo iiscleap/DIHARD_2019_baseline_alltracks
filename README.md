@@ -167,7 +167,6 @@ The script will also display DER on dev.
 ##### Baseline results for DIHARD_DEV_2019 Track2 is in \<mod\>/DIHARD_2019_baseline_alltracks/performance_metrics_dev_track2_den.txt
 -------------------------------------------------
 
-<<<<<<< HEAD
 #### Common instructions for Track 3 and 4:
 Multichannel data for track 3 and 4 can be downloaded from [Chime 5 speech corpus](https://licensing.sheffield.ac.uk/i/data/chime5.html). Let <original_ch5> be the path where chime5 speech corpus will be unzipped.
 
@@ -209,32 +208,32 @@ The script will also display DER on dev.
 
 ##### Baseline results for DIHARD_DEV_2019 Track3 is in <mod>/DIHARD_2019_baseline_alltracks/performance_metrics_dev_track3.txt
 ----------------------------------------------------------
-=======
 
-#### Beamforming instructions (for Tracks 3 and 4):
-Kaldi's Beamforming tool will be used for this task. Instructions follow.
 
-**1.**  Install Beamforming using the command from \<k\>.
+#### Track 4 instructions :
+
+**1.** Execute the run_vad.sh in \<mod\>/DIHARD_2019_baseline_alltracks to create SAD files for DIHARD 2019 dev and eval multi channel datasets. 
 ```
-./kaldi/tools/extras/install_beamformit.sh
-```
-
-
-
-
-
----------------------------------------------------
-
-#### Track 3 instructions :
-**1.** Data preparation of DIHARD 2019 dev and eval for Track 1.
+cd <mod>/DIHARD_2019_baseline_alltracks
+bash run_vad.sh <dev_multi>/wav
+bash run_vad.sh <eval_multi>/wav  
 ```
 
+**2.** Copy all such .sad files into a folder named sad_webrtc in <dev_multi|eval_multi>
+```
+mkdir <dev_multi>/sad_webrtc
+cp <dev_multi>/wav/*.sad <dev_multi>/sad_webrtc
+mkdir <eval_multi>/sad_webrtc
+cp <eval_multi>/wav/*.sad <eval_multi>/sad_webrtc
 ```
 
-
-
->>>>>>> 8b5e76aa4c88762b426ce42f55845e7684e483d8
-
+**3.** Data preparation of DIHARD 2019 dev and eval for Track 4.
+```
+cd <k>/kaldi/egs/dihard_2018/v2/
+local/make_dihard_2019_dev_eval_alltracks.sh --devoreval dev --tracknum 4 <dev_multi> data/dihard_dev_2019_track4
+local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 4 <eval_multi> dihard_eval_2019_track4
+```
+-------------------------------------------
 **Note :** Filewise performance metrics of DER, Jaccard Error Rate(JER), Mutual Information (MI) ... computed using the scoring script in [dscore](https://github.com/nryant/dscore "https://github.com/nryant/dscore")
 
 **Note :** The readme of this repository uses DIHARD 2019 dataset as an example, but the scripts here will work on any dataset, provided the dataset structure is maintained as shown above and the dataset's list files are present in <mod>.
