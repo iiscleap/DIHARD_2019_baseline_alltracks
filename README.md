@@ -100,7 +100,7 @@ cp <eval>/wav/*.sad <eval>/sad_webrtc
 ```
 cd <k>/kaldi/egs/dihard_2018/v2/
 local/make_dihard_2019_dev_eval_alltracks.sh --devoreval dev --tracknum 2 <dev> data/dihard_dev_2019_track2
-local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 2 <eval> dihard_eval_2019_track2
+local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 2 <eval> data/dihard_eval_2019_track2
 ```
 **5.** Execute the alltracksrun.sh file as shown below (requires track number option and plda path of plda_track2 file ) :  
 ```
@@ -153,7 +153,7 @@ mv <sad_webrtc_den_eval> <eval>/den_sad_webrtc_eval
 ```
 cd <k>/kaldi/egs/dihard_2018/v2/
 local/make_dihard_2019_dev_eval_alltracks.sh --devoreval dev --tracknum 2_den <dev> data/dihard_dev_2019_track2_den
-local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 2_den <eval> dihard_eval_2019_track2_den
+local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 2_den <eval> data/dihard_eval_2019_track2_den
 ```
 **4.** Execute the alltracksrun.sh file as shown below (requires track number option and plda path of plda_track2 file ) :  
 ```
@@ -164,7 +164,7 @@ bash alltracksrun.sh --tracknum 2_den --plda_path <mod>/DIHARD_2019_baseline_all
 ##### Running the above command generates rttm file for dev and eval in \<k\>/kaldi/egs/dihard_2018/v2/exp/xvector_nnet_1a/xvectors_dihard_{dev|eval}_2019_track2_den/plda_scores/rttm
 The script will also display DER on dev.
 
-##### Baseline results for DIHARD_DEV_2019 Track2 is in \<mod\>/DIHARD_2019_baseline_alltracks/performance_metrics_dev_track2_den.txt
+##### Baseline results for DIHARD_DEV_2019 Track2 denoised is in \<mod\>/DIHARD_2019_baseline_alltracks/performance_metrics_dev_track2_den.txt
 -------------------------------------------------
 
 #### Common instructions for Track 3 and 4:
@@ -231,7 +231,7 @@ cp <eval_multi>/wav/*.sad <eval_multi>/sad_webrtc
 ```
 cd <k>/kaldi/egs/dihard_2018/v2/
 local/make_dihard_2019_dev_eval_alltracks.sh --devoreval dev --tracknum 4 <dev_multi> data/dihard_dev_2019_track4
-local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 4 <eval_multi> dihard_eval_2019_track4
+local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 4 <eval_multi> data/dihard_eval_2019_track4
 ```
 
 ##### Running the above command generates rttm file for multichannel dev and eval in <k>/kaldi/egs/dihard_2018/v2/exp/xvector_nnet_1a/xvectors_dihard_{dev|eval}_2019_track4/plda_scores/rttm
@@ -239,6 +239,38 @@ local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 4 <eval
 The script will also display DER on dev.
 
 ##### Baseline results for DIHARD_DEV_2019 Track4 is in <mod>/DIHARD_2019_baseline_alltracks/performance_metrics_dev_track4.txt
+
+-------------------------------------------
+#### (Optional) Track 4 with denoising instructions :
+
+##### Dependencies : 
+ Same as that of track 2 with denoising. 
+
+**1.** Clone the repository [mmmaat/denoising_DIHARD18](https://github.com/mmmaat/denoising_DIHARD18), into a directory referred as <den> hereon.
+```
+cd <den>
+git clone https://github.com/mmmaat/denoising_DIHARD18.git
+```
+**2.** Follow the steps in  [mmmaat/denoising_DIHARD18](https://github.com/mmmaat/denoising_DIHARD18) to obtain webrtc SAD, post denoising, in a directory referred as <sad_webrtc_den_dev> and <sad_webrtc_den_eval> , and run the following
+```
+mv <sad_webrtc_den_dev> <dev_multi>/den_sad_webrtc_dev
+mv <sad_webrtc_den_eval> <eval_multi>/den_sad_webrtc_eval
+```
+**3.** Data preparation of DIHARD 2019 dev and eval for Track 4 using denoising.
+```
+cd <k>/kaldi/egs/dihard_2018/v2/
+local/make_dihard_2019_dev_eval_alltracks.sh --devoreval dev --tracknum 4_den <dev_multi> data/dihard_dev_2019_track4_den
+local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 4_den <eval_multi> data/dihard_eval_2019_track4_den
+```
+**4.** Execute the alltracksrun.sh file as shown below (requires track number option and plda path of plda_track4 file ) :  
+```
+bash alltracksrun.sh --tracknum 4_den --plda_path <mod>/DIHARD_2019_baseline_alltracks/plda_track4
+```
+
+##### Running the above command generates rttm file for dev and eval in \<k\>/kaldi/egs/dihard_2018/v2/exp/xvector_nnet_1a/xvectors_dihard_{dev|eval}_2019_track4_den/plda_scores/rttm
+The script will also display DER on dev.
+
+##### Baseline results for DIHARD_DEV_2019 Track4 denoised is in \<mod\>/DIHARD_2019_baseline_alltracks/performance_metrics_dev_track4_den.txt
 
 
 -------------------------------------------
