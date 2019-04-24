@@ -21,7 +21,7 @@ if [ $# != 0 -o "$plda_path" = "default" -o "$tracknum" = "-1" ]; then
 fi
 
 
-if [[ "$tracknum" == "2_den" || $tracknum -eq 1 || $tracknum -eq 2 || $tracknum -eq 3 ]]; then
+if [[ "$tracknum" == "2_den" || $tracknum -eq 1 || $tracknum -eq 2 || $tracknum -eq 3 || $tracknum -eq 4 ]]; then
 
   echo "Track 2 on denoised audio"
   track=track$tracknum

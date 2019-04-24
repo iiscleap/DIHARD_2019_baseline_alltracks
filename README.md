@@ -167,6 +167,7 @@ The script will also display DER on dev.
 ##### Baseline results for DIHARD_DEV_2019 Track2 is in \<mod\>/DIHARD_2019_baseline_alltracks/performance_metrics_dev_track2_den.txt
 -------------------------------------------------
 
+<<<<<<< HEAD
 #### Common instructions for Track 3 and 4:
 Multichannel data for track 3 and 4 can be downloaded from [Chime 5 speech corpus](https://licensing.sheffield.ac.uk/i/data/chime5.html). Let <original_ch5> be the path where chime5 speech corpus will be unzipped.
 
@@ -208,6 +209,31 @@ The script will also display DER on dev.
 
 ##### Baseline results for DIHARD_DEV_2019 Track3 is in <mod>/DIHARD_2019_baseline_alltracks/performance_metrics_dev_track3.txt
 ----------------------------------------------------------
+=======
+
+#### Beamforming instructions (for Tracks 3 and 4):
+Kaldi's Beamforming tool will be used for this task. Instructions follow.
+
+**1.**  Install Beamforming using the command from \<k\>.
+```
+./kaldi/tools/extras/install_beamformit.sh
+```
+
+
+
+
+
+---------------------------------------------------
+
+#### Track 3 instructions :
+**1.** Data preparation of DIHARD 2019 dev and eval for Track 1.
+```
+
+```
+
+
+
+>>>>>>> 8b5e76aa4c88762b426ce42f55845e7684e483d8
 
 **Note :** Filewise performance metrics of DER, Jaccard Error Rate(JER), Mutual Information (MI) ... computed using the scoring script in [dscore](https://github.com/nryant/dscore "https://github.com/nryant/dscore")
 
