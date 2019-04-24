@@ -233,6 +233,14 @@ cd <k>/kaldi/egs/dihard_2018/v2/
 local/make_dihard_2019_dev_eval_alltracks.sh --devoreval dev --tracknum 4 <dev_multi> data/dihard_dev_2019_track4
 local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 4 <eval_multi> dihard_eval_2019_track4
 ```
+
+##### Running the above command generates rttm file for multichannel dev and eval in <k>/kaldi/egs/dihard_2018/v2/exp/xvector_nnet_1a/xvectors_dihard_{dev|eval}_2019_track4/plda_scores/rttm
+
+The script will also display DER on dev.
+
+##### Baseline results for DIHARD_DEV_2019 Track4 is in <mod>/DIHARD_2019_baseline_alltracks/performance_metrics_dev_track4.txt
+
+
 -------------------------------------------
 **Note :** Filewise performance metrics of DER, Jaccard Error Rate(JER), Mutual Information (MI) ... computed using the scoring script in [dscore](https://github.com/nryant/dscore "https://github.com/nryant/dscore")
 
