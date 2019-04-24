@@ -1,14 +1,8 @@
-
 import sys, os
-
-
-
 
 def prepare_dihard_2019_dev(src_dir, data_dir, tracknum):
 
     print('Preparing dev dataset for track {}'.format(tracknum))
-
-
 
     wavscp_fi = open(data_dir + "/wav.scp" , 'w')
     utt2spk_fi = open(data_dir + "/utt2spk" , 'w')
@@ -19,9 +13,14 @@ def prepare_dihard_2019_dev(src_dir, data_dir, tracknum):
     towalk = os.path.join(src_dir)
 
     for root, dirs, files in os.walk(towalk):
-        flacpath = os.path.join(root,'flac') 
+        if int(track) == 3:
+            flacpath = os.path.join(root,'wav') 
+        else:
+            flacpath = os.path.join(root,'flac') 
+
         rttmpath = os.path.join(root,'rttm')
-        if int(track) == 1:
+
+        if int(track) == 1 or int(track) == 3:
             sadpath = os.path.join(root,'sad')
         elif int(track) == 2:
             sadpath = os.path.join(root,'sad_webrtc')
@@ -31,7 +30,7 @@ def prepare_dihard_2019_dev(src_dir, data_dir, tracknum):
         for sadroot, _ , labs in os.walk(sadpath):
 
             for filename in labs: 
-                if int(track) == 1:
+                if int(track) == 1 or int(track) == 3:
                     endswithtext=".lab"
                 elif int(track) == 2 or track=="2_den":
                     endswithtext=".sad"
@@ -44,7 +43,7 @@ def prepare_dihard_2019_dev(src_dir, data_dir, tracknum):
                     segment_id = 0
                     for line in lines:
 
-                        if int(track) == 1:
+                        if int(track) == 1 or int(track) == 3:
                             start, end, speech = line.split()
                         elif int(track) == 2 or track=="2_den":
                             start, end = line.split()
@@ -56,8 +55,12 @@ def prepare_dihard_2019_dev(src_dir, data_dir, tracknum):
                         utt2spk_fi.write(utt2spk_str)
                         segment_id += 1
 
-                    wav_str = "{} sox -t flac {}/{}.flac -t wav -r 16k "\
-                           "-b 16 --channels 1 - |\n".format(utt, flacpath, utt) 
+                    if int(track) == 3:
+                        wav_str = "{} sox -c 1 -t wavpcm -s {}/{}.wav -r 16000 -t wavpcm - |\n".format(utt, flacpath, utt)
+
+                    else:
+                        wav_str = "{} sox -t flac {}/{}.flac -t wav -r 16k "\
+                               "-b 16 --channels 1 - |\n".format(utt, flacpath, utt) 
 
                     wavscp_fi.write(wav_str)
 
@@ -79,6 +82,7 @@ def prepare_dihard_2019_dev(src_dir, data_dir, tracknum):
 
 
 def prepare_dihard_2019_eval(src_dir, data_dir, tracknum):
+
     print('Preparing eval dataset for track {}'.format(tracknum))
 
     wavscp_fi = open(data_dir + "/wav.scp" , 'w')
@@ -89,9 +93,15 @@ def prepare_dihard_2019_eval(src_dir, data_dir, tracknum):
     towalk = os.path.join(src_dir)
 
     for root, dirs, files in os.walk(towalk):
-        flacpath = os.path.join(root,'flac') 
+
+        if int(track) == 3:
+            flacpath = os.path.join(root,'wav') 
+        else:
+            flacpath = os.path.join(root,'flac') 
+
         rttmpath = os.path.join(root,'rttm')
-        if int(track) == 1:
+
+        if int(track) == 1 or int(track) == 3:
             sadpath = os.path.join(root,'sad')
         elif int(track) == 2:
             sadpath = os.path.join(root,'sad_webrtc')
@@ -101,7 +111,7 @@ def prepare_dihard_2019_eval(src_dir, data_dir, tracknum):
         for sadroot, _ , labs in os.walk(sadpath):
 
             for filename in labs: 
-                if int(track) == 1:
+                if int(track) == 1 or int(track) == 3:
                     endswithtext=".lab"
                 elif int(track) == 2 or track=="2_den":
                     endswithtext=".sad"
@@ -116,7 +126,7 @@ def prepare_dihard_2019_eval(src_dir, data_dir, tracknum):
                     for line in lines:
 
 
-                        if int(track) == 1:
+                        if int(track) == 1 or int(track) == 3:
                             start, end, speech = line.split()
                         elif int(track) == 2 or track=="2_den":
                             start, end = line.split()
@@ -128,8 +138,12 @@ def prepare_dihard_2019_eval(src_dir, data_dir, tracknum):
                         utt2spk_fi.write(utt2spk_str)
                         segment_id += 1
 
-                    wav_str = "{} sox -t flac {}/{}.flac -t wav -r 16k "\
-                           "-b 16 --channels 1 - |\n".format(utt, flacpath, utt) 
+                    if int(track) == 3:
+                        wav_str = "{} sox -c 1 -t wavpcm -s {}/{}.wav -r 16000 -t wavpcm - |\n".format(utt, flacpath, utt)
+
+                    else:            
+                        wav_str = "{} sox -t flac {}/{}.flac -t wav -r 16k "\
+                               "-b 16 --channels 1 - |\n".format(utt, flacpath, utt) 
 
                     wavscp_fi.write(wav_str)
 
@@ -142,6 +156,7 @@ def prepare_dihard_2019_eval(src_dir, data_dir, tracknum):
 
 
 #################################
+
 def main():
     src_dir = sys.argv[1]
     data_dir = sys.argv[2]
@@ -159,5 +174,8 @@ def main():
 
     return 0
 
-if __name__=="__main__":
+
+
+
+if __name__ == "__main__":
     main()

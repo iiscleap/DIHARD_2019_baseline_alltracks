@@ -43,24 +43,26 @@ git clone https://github.com/iiscleap/DIHARD_2019_baseline_alltracks.git
 ```
 cd <mod>/DIHARD_2019_baseline_alltracks
 cp alltracksrun.sh <k>/kaldi/egs/dihard_2018/v2
+cp run_beamform.sh <k>/kaldi/egs/dihard_2018/v2
 cp {make_dihard_2019_dev_eval_alltracks.py,make_dihard_2019_dev_eval_alltracks.sh} <k>/kaldi/egs/dihard_2018/v2/local     
 mkdir -p <k>/kaldi/egs/dihard_2018/v2/exp/xvector_nnet_1a
 cp {final.raw,max_chunk_size,min_chunk_size,extract.config} <k>/kaldi/egs/dihard_2018/v2/exp/xvector_nnet_1a
 cp md_eval.pl <k>/kaldi/egs/dihard_2018/v2
 ```
 
-**Note.** \<dev\> and \<eval\> will refer to DIHARD 2019 single channel development and evaluation datasets respectively. 
+**Note.** \<dev\> and \<eval\> will refer to DIHARD 2019 single channel development and evaluation datasets respectively. Similarly  \<dev_multi\> and \<eval_multi\> will refer to DIHARD 2019 multi channel development and evaluation datasets respectively.
+
 
 #### Track 1 instructions :
 
 **1.**  Data preparation of DIHARD 2019 dev and eval for Track 1.
 ```
 cd <k>/kaldi/egs/dihard_2018/v2/
-local/make_dihard_2019_dev_eval_alltracks.sh --devoreval dev --tracknum 1 <path of DIHARD 2019 dev> data/dihard_dev_2019_track1
-local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 1 <path of DIHARD 2019 eval> data/dihard_eval_2019_track1
+local/make_dihard_2019_dev_eval_alltracks.sh --devoreval dev --tracknum 1 <dev> data/dihard_dev_2019_track1
+local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 1 <eval> data/dihard_eval_2019_track1
 ```
 
-**2.** Execute the alltracks.sh file (example for running track 1) .. Requires track number and plda path of plda_track1 file: 
+**2.** Execute the alltracksrun.sh file (example for running track 1) .. Requires track number and plda path of plda_track1 file: 
 ```
 bash alltracksrun.sh --tracknum 1 --plda_path <mod>/DIHARD_2019_baseline_alltracks/plda_track1
 ```
@@ -100,7 +102,7 @@ cd <k>/kaldi/egs/dihard_2018/v2/
 local/make_dihard_2019_dev_eval_alltracks.sh --devoreval dev --tracknum 2 <dev> data/dihard_dev_2019_track2
 local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 2 <eval> dihard_eval_2019_track2
 ```
-**5.** Execute the alltracks.sh file as shown below (requires track number option and plda path of plda_track2 file ) :  
+**5.** Execute the alltracksrun.sh file as shown below (requires track number option and plda path of plda_track2 file ) :  
 ```
 bash alltracksrun.sh --tracknum 2 --plda_path <mod>/DIHARD_2019_baseline_alltracks/plda_track2
 ```
@@ -137,12 +139,12 @@ Microphone Arrays (HSCMA). IEEE,
 2017.[PDF](http://home.ustc.edu.cn/~sunlei17/pdf/MULTIPLE-TARGET.pdf)
 
 
-**1.** Clone the repository [mmmaat/denoising_DIHARD18](https://github.com/mmmaat/denoising_DIHARD18.git), into a directory referred as <den> hereon.
+**1.** Clone the repository [mmmaat/denoising_DIHARD18](https://github.com/mmmaat/denoising_DIHARD18), into a directory referred as <den> hereon.
 ```
 cd <den>
 git clone https://github.com/mmmaat/denoising_DIHARD18.git
 ```
-**2.** Follow the steps in https://github.com/mmmaat/denoising_DIHARD18 to obtain webrtc SAD, post denoising, in a directory referred as <sad_webrtc_den_dev> and <sad_webrtc_den_eval> . 
+**2.** Follow the steps in  [mmmaat/denoising_DIHARD18](https://github.com/mmmaat/denoising_DIHARD18) to obtain webrtc SAD, post denoising, in a directory referred as <sad_webrtc_den_dev> and <sad_webrtc_den_eval> . 
 ```
 mv <sad_webrtc_den_dev> <dev>/den_sad_webrtc_dev
 mv <sad_webrtc_den_eval> <eval>/den_sad_webrtc_eval
@@ -153,7 +155,7 @@ cd <k>/kaldi/egs/dihard_2018/v2/
 local/make_dihard_2019_dev_eval_alltracks.sh --devoreval dev --tracknum 2_den <dev> data/dihard_dev_2019_track2_den
 local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 2_den <eval> dihard_eval_2019_track2_den
 ```
-**4.** Execute the alltracks.sh file as shown below (requires track number option and plda path of plda_track2 file ) :  
+**4.** Execute the alltracksrun.sh file as shown below (requires track number option and plda path of plda_track2 file ) :  
 ```
 bash alltracksrun.sh --tracknum 2_den --plda_path <mod>/DIHARD_2019_baseline_alltracks/plda_track2
 ```
@@ -165,16 +167,58 @@ The script will also display DER on dev.
 ##### Baseline results for DIHARD_DEV_2019 Track2 is in \<mod\>/DIHARD_2019_baseline_alltracks/performance_metrics_dev_track2_den.txt
 -------------------------------------------------
 
+#### Common instructions for Track 3 and 4:
+Multichannel data for track 3 and 4 can be downloaded from [Chime 5 speech corpus](https://licensing.sheffield.ac.uk/i/data/chime5.html). Let <original_ch5> be the path where chime5 speech corpus will be unzipped.
+
+##### Beamforming instructions:
+Kaldi's Beamforming tool will be used for this task. Instructions follow.
+
+**1.**  Install Beamforming using the following command.
+```
+cd <k>
+./kaldi/tools/extras/install_beamformit.sh
+```
+**2.** Execute the following commands to append paths related to Beamforming in path.sh
+```
+cd <k>/kaldi
+echo "BEAMFORMIT=\$KALDI_ROOT/tools/BeamformIt" >> path.sh
+echo "export PATH=\$PATH:\$BEAMFORMIT" >> path.sh
+```
+**3.** Run the run_beamform.sh file as shown
+```
+cd <k>/kaldi/egs/dihard_2018/v2
+./run_beamform.sh <original_ch5>/CHiME5/ <dev_multi> <eval_multi>
+```
+
+---------------------------------------------------
+#### Track 3 instructions :
+**1.** Data preparation of DIHARD 2019 dev and eval for Track 1.
+```
+local/make_dihard_2019_dev_eval_alltracks.sh --devoreval dev --tracknum 3 <dev_multi> data/dihard_dev_2019_track3
+local/make_dihard_2019_dev_eval_alltracks.sh --devoreval eval --tracknum 3 <eval_multi> data/dihard_eval_2019_track3
+```
+
+**2.** Execute the alltracksrun.sh file as shown below (requires track number option and plda path of plda_track3 file ) :  
+```
+bash alltracksrun.sh --tracknum 3 --plda_path <mod>/DIHARD_2019_baseline_alltracks/plda_track3
+```
+##### Running the above command generates rttm file for multichannel dev and eval in <k>/kaldi/egs/dihard_2018/v2/exp/xvector_nnet_1a/xvectors_dihard_{dev|eval}_2019_track3/plda_scores/rttm
+
+The script will also display DER on dev.
+
+##### Baseline results for DIHARD_DEV_2019 Track3 is in <mod>/DIHARD_2019_baseline_alltracks/performance_metrics_dev_track3.txt
+----------------------------------------------------------
+
 **Note :** Filewise performance metrics of DER, Jaccard Error Rate(JER), Mutual Information (MI) ... computed using the scoring script in [dscore](https://github.com/nryant/dscore "https://github.com/nryant/dscore")
 
 **Note :** The readme of this repository uses DIHARD 2019 dataset as an example, but the scripts here will work on any dataset, provided the dataset structure is maintained as shown above and the dataset's list files are present in <mod>.
 All you need is the that the dataset directory path passed to the data preparation files expects the contents within the directory to be structured as the example shown below
 ```
 <path of dataset passed>
-|-- flac
-|   |-- DH_0001.flac
-|   |-- DH_0002.flac
-|   |-- DH_0003.flac
+|-- flac/wav
+|   |-- DH_0001.flac/DH_0001.wav
+|   |-- DH_0002.flac/DH_0002.wav
+|   |-- DH_0003.flac/DH_0003.wav
 |-- sad
 |   |-- DH_0001.lab
 |   |-- DH_0002.lab
