@@ -1,8 +1,13 @@
+#!/usr/bin/env python3
+
+# This script is called by local/make_dihard_2019_dev_eval_alltracks.sh, and it creates the
+# necessary files for DIHARD 2018 development directory.
+
 import sys, os
 
-def prepare_dihard_2019_dev(src_dir, data_dir, tracknum):
+def prepare_dihard_2019_dev(src_dir, data_dir, track):
 
-    print('Preparing dev dataset for track {}'.format(tracknum))
+    print('Preparing dev dataset for track {}'.format(track))
 
     wavscp_fi = open(data_dir + "/wav.scp" , 'w')
     utt2spk_fi = open(data_dir + "/utt2spk" , 'w')
@@ -81,9 +86,9 @@ def prepare_dihard_2019_dev(src_dir, data_dir, tracknum):
     return 0
 
 
-def prepare_dihard_2019_eval(src_dir, data_dir, tracknum):
+def prepare_dihard_2019_eval(src_dir, data_dir, track):
 
-    print('Preparing eval dataset for track {}'.format(tracknum))
+    print('Preparing eval dataset for track {}'.format(track))
 
     wavscp_fi = open(data_dir + "/wav.scp" , 'w')
     utt2spk_fi = open(data_dir + "/utt2spk" , 'w')
