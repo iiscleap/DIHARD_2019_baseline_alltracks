@@ -21,7 +21,7 @@ The following packages are required to run the baseline.
 The **OPTIONAL** components are only required to run the track 2 and track 4 recipes.
 
 
-Additionally, you will need to obtain the relevant data releases from [LDC](https://www.ldc.upenn.edu/) and [University of Sheffield]([http://spandh.dcs.shef.ac.uk/](http://spandh.dcs.shef.ac.uk/)):
+Additionally, you will need to obtain the relevant data releases from [LDC](https://www.ldc.upenn.edu/) and [University of Sheffield](http://spandh.dcs.shef.ac.uk/](http://spandh.dcs.shef.ac.uk/):
 
 - DIHARD II development set (**LDC2019E31**)
 
