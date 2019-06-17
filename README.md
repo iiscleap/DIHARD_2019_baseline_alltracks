@@ -16,7 +16,7 @@ The following packages are required to run the baseline.
 - [Kaldi](https://github.com/kaldi-asr/kaldi)
 - [dscore](https://github.com/nryant/dscore)
 - the [denoising_DIHARD18](https://github.com/staplesinLA/denoising_DIHARD18) speech denoising and SAD tools (**OPTIONAL**)
-- [CNTK](https://docs.microsoft.com/en-us/cognitive-toolkit/setup-linux-python?tabs=cntkpy26) (**OPTIONAL**)
+- [CNTK](https://github.com/microsoft/CNTK) (**OPTIONAL**)
 
 The **OPTIONAL** components are only required to run the track 2 and track 4 recipes.
 
