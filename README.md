@@ -12,7 +12,7 @@ For further details about the training pipeline, please consult the companion pa
 
 The following packages are required to run the baseline.
 
-- Python >= 2.7
+- [Python](https://www.python.org/) >= 2.7
 - [Kaldi](https://github.com/kaldi-asr/kaldi)
 - [dscore](https://github.com/nryant/dscore)
 - the [denoising_DIHARD18](https://github.com/staplesinLA/denoising_DIHARD18) speech denoising and SAD tools (**OPTIONAL**)
