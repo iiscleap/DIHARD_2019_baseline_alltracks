@@ -23,6 +23,9 @@ DSCORE_GIT=https://github.com/nryant/dscore.git
 DSCORE_DIR=`realpath $SCRIPT_DIR/dscore`
 if [ ! -d $DSCORE_DIR ]; then
     git clone $DSCORE_GIT
+    cd $DSCORE_DIR
+    git checkout 824f126
+    cd ..
 else
     echo "$DSCORE_DIR already exists!"
 fi

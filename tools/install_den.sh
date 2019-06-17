@@ -33,6 +33,9 @@ DEN_GIT=https://github.com/staplesinLA/denoising_DIHARD18
 DEN_DIR=`realpath $PWD/denoising_DIHARD18`
 if [ ! -d $DEN_DIR ]; then
     git lfs clone $DEN_GIT
+    cd $DEN_DIR
+    git checkout 735244c
+    cd ..
 else
     echo "$DEN_DIR already exists!"
 fi
