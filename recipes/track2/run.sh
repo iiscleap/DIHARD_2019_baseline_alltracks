@@ -11,7 +11,7 @@ PYTHON=python
 # Path to root of DIHARD II dev release (LDC2019E31).
 DIHARD_DEV_DIR=/scratch/nryant/dihard2/deliveries/LDC2019E31_Second_DIHARD_Challenge_Development_Data/
 
-# Path to root of DIHARD II eval release (LDC2019E32)
+# Path to root of DIHARD II eval release (LDC2019E32).
 DIHARD_EVAL_DIR=/scratch/nryant/dihard2/deliveries/LDC2019E32_Second_DIHARD_Challenge_Evaluation_Data_SCRUBBED/
 
 
@@ -86,6 +86,7 @@ fi
 # Prepare data directory for DEV set.
 echo "Preparing data directory for DEV set..."
 DEV_DATA_DIR=data/dihard_dev_2019_track2
+rm -fr $DEV_DATA_DIR
 local/make_data_dir.py \
    --audio_ext '.flac' \
    --rttm_dir $DIHARD_DEV_DIR/data/single_channel/rttm \
@@ -97,6 +98,7 @@ utils/fix_data_dir.sh $DEV_DATA_DIR
 # Prepare data directory for EVAL set.
 echo "Preparing data directory for EVAL set...."
 EVAL_DATA_DIR=data/dihard_eval_2019_track2
+rm -fr $EVAL_DATA_DIR
 local/make_data_dir.py \
    --audio_ext	'.flac'	\
    $EVAL_DATA_DIR \
@@ -106,7 +108,7 @@ utils/fix_data_dir.sh $EVAL_DATA_DIR
 
 # Diarize.
 echo "Diarizing..."
-./alltracksrun.sh --tracknum 2 --plda_path exp/xvector_nnet_1a/plda_track2
+./alltracksrun.sh --tracknum 2 --plda_path exp/xvector_nnet_1a/plda_track2 --njobs $NJOBS
 
 # Extract dev/eval RTTM files.
 echo "Extracting RTTM files..."
@@ -125,4 +127,6 @@ $PYTHON $DSCORE_DIR/score.py \
     -u $DIHARD_DEV_DIR/data/single_channel/uem/all.uem \
     -r $DIHARD_DEV_DIR/data/single_channel/rttm/*.rttm \
     -s $DEV_RTTM_DIR/*.rttm \
-    > metrics_dev.txt 2> metrics_dev.stderr
+    > metrics_dev.stdout 2> metrics_dev.stderr
+
+echo "Run finished successfully."

@@ -11,10 +11,10 @@ PYTHON=python
 # Path to root of DIHARD II dev release (LDC2019E31).
 DIHARD_DEV_DIR=/scratch/nryant/dihard2/deliveries/LDC2019E31_Second_DIHARD_Challenge_Development_Data/
 
-# Path to root of DIHARD II eval release (LDC2019E32)
+# Path to root of DIHARD II eval release (LDC2019E32).
 DIHARD_EVAL_DIR=/scratch/nryant/dihard2/deliveries/LDC2019E32_Second_DIHARD_Challenge_Evaluation_Data_SCRUBBED/
 
-# Path to root of CHIME directory.
+# Path to root of CHiME-5 release.
 CHIME_DIR=/data/corpora/CHiME5/
 
 
@@ -27,11 +27,11 @@ SCRIPTS_DIR=$THIS_DIR/../../scripts
 [ -f $TOOLS_DIR/env.sh ] && . $TOOLS_DIR/env.sh
 if [ -z	$KALDI_DIR ]; then
     echo "KALDI_DIR not defined. Please run tools/install_kaldi.sh"
-    exit
+    exit 1
 fi
 if [ -z "$DEN_DIR" ]; then
     echo "DEN_DIR not defined. Please run tools/install_den.sh."
-    exit
+    exit 1
 fi
 $SCRIPTS_DIR/prep_eg_dir.sh
 
@@ -113,6 +113,7 @@ fi
 # Prepare data directory for DEV set.
 echo "Preparing data directory for DEV set..."
 DEV_DATA_DIR=data/dihard_dev_2019_track4_den
+rm -fr $DEV_DATA_DIR
 local/make_data_dir.py \
    --audio_ext '.wav' \
    --rttm_dir $DIHARD_DEV_DIR/data/multichannel/rttm \
@@ -124,6 +125,7 @@ utils/fix_data_dir.sh $DEV_DATA_DIR
 # Prepare data directory for EVAL set.
 echo "Preparing data directory for EVAL set...."
 EVAL_DATA_DIR=data/dihard_eval_2019_track4_den
+rm -fr $EVAL_DATA_DIR
 local/make_data_dir.py \
    --audio_ext	'.wav'	\
    $EVAL_DATA_DIR \
@@ -152,4 +154,6 @@ $PYTHON $DSCORE_DIR/score.py \
     -u $DIHARD_DEV_DIR/data/multichannel/uem/all.uem \
     -r $DIHARD_DEV_DIR/data/multichannel/rttm/*.rttm \
     -s $DEV_RTTM_DIR/*.rttm \
-    > metrics_dev.txt 2> metrics_dev.stderr
+    > metrics_dev.stdout 2> metrics_dev.stderr
+
+echo "Run finished successfully."
