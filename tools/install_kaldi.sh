@@ -10,26 +10,18 @@ KALDI_DIR=`realpath -s $PWD/kaldi`
 
 
 # Clone Kaldi and checkout to known working version.
-echo "Cloning Kaldi."
+echo "Installing Kaldi."
 if [ ! -d "$KALDI_DIR" ]; then
+    # Clone Kaldi and checkout to known working version.
     git clone $KALDI_GIT $KALDI_DIR
     pushd $KALDI_DIR > /dev/null
     git checkout 213ae52ac
-    popd > /dev/null
-else
-  echo "$KALDI_DIR already exists!"
-fi
 
-# Perform full Kaldi build with:
-# - OpenBLAS linkage
-# - compiled beamformit
-echo $KALDI_DIR
-if [ -L $KALDI_DIR ]; then
-    echo "$KALDI_DIR exists and is symlink. Skipping rest of build."
-else
+    # Perform full Kaldi build with:
+    # - OpenBLAS linkage
+    # - compiled beamformit
     echo "Building Kaldi."
-    pushd $KALDI_DIR > /dev/null
-    
+
     # Prevent Kaldi from switching default python version
     mkdir -p "tools/python"
     touch "tools/python/.use_default_python"
@@ -46,7 +38,9 @@ else
     make depend -j $NJOBS
     make -j $NJOBS
 
-    popd
+    popd > /dev/null
+else
+  echo "$KALDI_DIR already exists!"
 fi
 
 
