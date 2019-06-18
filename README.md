@@ -2,7 +2,7 @@ Implementation of diarization baseline for the [Second DIHARD Speech Diarization
 
 - Sell, Gregory, et al. (2018). "Diarization is Hard: Some experiences and lessons learned for the JHU team in the Inaugural DIHARD Challenge." Proceedings of INTERSPEECH 2018. 2808-2812. ([paper](http://www.danielpovey.com/files/2018_interspeech_dihard.pdf))
 
-The x-vector extractor and PLDA parameters were trained on [VoxCeleb I and II](http://www.robots.ox.ac.uk/~vgg/data/voxceleb/) using data augmentation (additive noise and reverberation), while the whitening transformation was learned from the DIHARD II development set. 
+The x-vector extractor and PLDA parameters were trained on [VoxCeleb I and II](http://www.robots.ox.ac.uk/~vgg/data/voxceleb/) using data augmentation (additive noise and reverberation), while the whitening transformation was learned from the DIHARD II development set.
 
 For further details about the training pipeline, please consult the companion paper to the challenge.
 
@@ -51,8 +51,21 @@ cd DIHARD_2019_baseline_alltracks/tools
 If you do not intend to run the track 2 or track 4 recipes, you may omit the call to ``install_den.sh``.
 
 Please check the output of these scripts to ensure that installation has succeeded. If succesful, you should see ``Successfully installed {Kaldi,dscore,denoising/VAD software}.`` printed at the end. If installation of a component fails, please consult the output of the relevant installation script for additional details.
-    
-    
+
+**NOTE** that by default Kaldi scripts are configured for execution on a grid using a submission engine such as SGE or Slurm. If you are running the recipes on a single machine, make sure to edit ``tools/kaldi/egs/dihard_2018/v2/cmd.sh`` so that the line
+
+    export train_cmd="queue.pl"
+
+reads
+
+    export train_cmd="run.pl"
+
+If you are a Kaldi novice, please consult the following for additional documentation:
+
+- [Kaldi tutorial](http://kaldi-asr.org/doc/tutorial.html)
+- [Kaldi for Dummies tutorial](http://kaldi-asr.org/doc/kaldi_for_dummies.html)
+
+
 
 ## Running the baseline
 
@@ -81,7 +94,7 @@ Each recipe directory contains three files:
 To run a recipe, switch to the corresponding directory, edit the paths at the top of ``run.sh`` to point to the locations of the DIHARD II DEV and EVAL releases on your system, and then execute ``run.sh``. When finished, there will be four additions to the directory:
 
 - ``rttm_dev/``   —  RTTM files output by the baseline for the DIHARD II DEV set
-- ``rttm_eval/`` —  RTTM files output by the baseline for the DIHARD II EVAL set 
+- ``rttm_eval/`` —  RTTM files output by the baseline for the DIHARD II EVAL set
 - ``metrics_dev.stdout``  —  output to STDOUT of the scoring tool for the RTTM files contained in ``rttm_dev/``
 - ``metrics_dev.stderr``  --  output to STDERR of the scoring tool for the RTTM files contained in ``rttm_eval/``
 
@@ -104,7 +117,7 @@ and open the ``run.sh`` script file in a text editor. The first section of this 
 # Path to root of DIHARD II dev release (LDC2019E31).
 DIHARD_DEV_DIR=/scratch/nryant/dihard2/deliveries/LDC2019E31_Second_DIHARD_Challenge_Development_Data/
 
-# Path to root of DIHARD II eval release (LDC2019E32)   
+# Path to root of DIHARD II eval release (LDC2019E32)
 DIHARD_EVAL_DIR=/scratch/nryant/dihard2/deliveries/LDC2019E32_Second_DIHARD_Challenge_Evaluation_Data_SCRUBBED/
 ```
 
@@ -173,7 +186,7 @@ This produces RTTM for both the DEV and EVAL sets in ``rttm_dev/`` and ``rttm_ev
 
 Expected DER and JER for the baseline system on the DIHARD II development and evaluation sets are presented in Tables 1 and 2.
 
-**Table 1: Expected baseline performance on DIHARD II development set. The *Enhancement* column indicates whether or not speech enhancement (denoising) was applied prior to SAD.** 
+**Table 1: Expected baseline performance on DIHARD II development set. The *Enhancement* column indicates whether or not speech enhancement (denoising) was applied prior to SAD.**
 
 | Track   | Enhancement | DER   | JER   |
 | ------- | ----------- | ----- | ----- |
@@ -184,7 +197,7 @@ Expected DER and JER for the baseline system on the DIHARD II development and ev
 | Track 4 | No          | 87.55 | 88.08 |
 | Track 4 | Yes         | 82.49 | 83.60 |
 
-**Table 2: Expected baseline performance on DIHARD II evaluation set. The *Enhancement* column indicates whether or not speech enhancement (denoising) was applied prior to SAD.** 
+**Table 2: Expected baseline performance on DIHARD II evaluation set. The *Enhancement* column indicates whether or not speech enhancement (denoising) was applied prior to SAD.**
 
 | Track   | Enhancement | DER   | JER   |
 | ------- | ----------- | ----- | ----- |
@@ -199,7 +212,7 @@ Expected DER and JER for the baseline system on the DIHARD II development and ev
 The above results were produced using the provided recipes with their default settings running on a single machine with the following specs:
 
 - 2 x Intel E5-2680 v4
-- 6 x Nvidia GXT 1080
+- 6 x Nvidia GTX 1080
 - 384 GB RAM
 - Ubuntu 18.04 LTS
 -  g++ 7.4.0
