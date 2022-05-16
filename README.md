@@ -1,4 +1,4 @@
-Implementation of diarization baseline for the [Second DIHARD Speech Diarization Challenge (DIHARD II)](https://coml.lscp.ens.fr/dihard/index.html). The baseline is based on the system used by [JHU](https://www.clsp.jhu.edu/) in their submission to [DIHARD I](https://coml.lscp.ens.fr/dihard/2018/index.html), with the exception that it omits the [Variational-Bayes](https://speech.fit.vutbr.cz/software/vb-diarization-eigenvoice-and-hmm-priors) refinement step:
+Implementation of diarization baseline for the [Second DIHARD Speech Diarization Challenge (DIHARD II)](https://dihardchallenge.github.io/dihard2). The baseline is based on the system used by [JHU](https://www.clsp.jhu.edu/) in their submission to [DIHARD I](https://dihardchallenge.github.io/dihard1), with the exception that it omits the [Variational-Bayes](https://speech.fit.vutbr.cz/software/vb-diarization-eigenvoice-and-hmm-priors) refinement step:
 
 - Sell, Gregory, et al. (2018). "Diarization is Hard: Some experiences and lessons learned for the JHU team in the Inaugural DIHARD Challenge." Proceedings of INTERSPEECH 2018. 2808-2812. ([paper](http://www.danielpovey.com/files/2018_interspeech_dihard.pdf))
 
@@ -29,7 +29,7 @@ Additionally, you will need to obtain the relevant data releases from [LDC](http
 
 - CHiME-5 training, development, and evaluation sets
 
-For instructions on obtaining these sets, please consult the [DIHARD II website](https://coml.lscp.ens.fr/dihard/).
+For instructions on obtaining these sets, please consult the [DIHARD II website](https://dihardchallenge.github.io/dihard2).
 
 ## Installation
 
